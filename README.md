@@ -50,6 +50,11 @@ Intro in the `utils.data_generation` module.
 
 WIP
 
+Getting scan results in proper data structure in soda-core is discussed in https://github.com/sodadata/soda-core/pull/1406 and the referenced slack converstation.
+
+TODO
+* understand results of checks applied to multiple columns, e.g. ` - duplicate_count(id, mail) = 0`  
+
 
 
 ### *11_pipeline_append-snapshots-with-schema-evolution.ipynb*
