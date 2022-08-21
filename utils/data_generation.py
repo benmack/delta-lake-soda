@@ -20,6 +20,7 @@ class FakerProfileDataSnapshot:
         self.data_dir = data_dir
         self.landing_dir = data_dir + '/landing'
         self.bronze_dir = data_dir + '/bronze'
+        self.bronze_scan_results_dir = data_dir + '/bronze_scan_results'
         self.silver_dir = data_dir + '/silver'
         self.silver_dir = data_dir + '/gold'
         
@@ -44,7 +45,8 @@ class FakerProfileDataSnapshot:
         df = self.create_batch(batch_id)
         df.index.name = 'id'
         filepath = f'{self.landing_dir}/snapshot_{delivery_date}.csv'
-        df.to_csv(filepath) #, index=None)
+        Path(filepath).parent.mkdir(exist_ok=True, parents=True)
+        df.to_csv(filepath)
         return filepath
 
     def delete_batches_in_landing_dir(self) -> None:
@@ -52,8 +54,17 @@ class FakerProfileDataSnapshot:
         [os.remove(file) for file in file_list]
 
     def delete_bronze_dir(self) -> None:
-        shutil.rmtree(self.bronze_dir)
-        
+        try:
+            shutil.rmtree(self.bronze_dir)
+        except FileNotFoundError:
+            print('Directory does ot exist.')
+
+    def delete_bronze_scan_results_dir(self) -> None:
+        try:
+            shutil.rmtree(self.bronze_scan_results_dir)
+        except FileNotFoundError:
+            print('Directory does ot exist.')
+
     def create_batch(self, batch_id) -> pd.DataFrame:
         """Initial data"""
         if batch_id == 1:

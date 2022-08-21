@@ -30,6 +30,12 @@ docker run -it --rm -p 8888:8888 -v "${PWD}":/home/jovyan/work jupyter/delta-lak
 
 
 
+## Intresting Slack conversations
+
+About `scan.set_data_source_name()` and yaml 
+https://soda-community.slack.com/archives/C038FFU79J5/p1658849620595999
+
+
 ## Notebooks
 
 
@@ -46,14 +52,22 @@ Intro in the `utils.data_generation` module.
 
 
 
-### *02_soda-scan-with-checks-and-profiling-on-delta-table.ipynb*
-
-WIP
+### *02_soda-scan-delta-table.ipynb*
 
 Getting scan results in proper data structure in soda-core is discussed in https://github.com/sodadata/soda-core/pull/1406 and the referenced slack converstation.
 
-TODO
-* understand results of checks applied to multiple columns, e.g. ` - duplicate_count(id, mail) = 0`  
+
+
+### *02_soda-scan-all-batches.ipynb*
+
+Process all seven batches generated with `utils.data_generatio.FakerProfileDataSnapshot`. 
+Steps:
+* store batch as CSV
+* overwrite data in delta table
+* run a scan
+* store scan results
+
+Contains example queries to consume the scan results. 
 
 
 
